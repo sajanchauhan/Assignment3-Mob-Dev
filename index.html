@@ -91,6 +91,13 @@ h1{margin:18px 0 8px}
     const onCardClick = (idx) => {
   if (pickedIndex === idx) { setPickedIndex(null); return; }
   if (pickedIndex === null) { setPickedIndex(idx); return; }
+  const a=Math.min(pickedIndex, idx), b=Math.max(pickedIndex, idx);
+  const next = hand.slice();
+  [next[a], next[b]] = [next[b], next[a]];
+  setHand(next);
+  setPickedIndex(null);
+};
+
   
 };
 
