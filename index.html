@@ -68,7 +68,16 @@ h1{margin:18px 0 8px}
     const [deck,setDeck]=React.useState(makeStandardDeck);
     const [hand,setHand]=React.useState([]);
     const [pickedIndex,setPickedIndex]=React.useState(null);
-    const drawFromDeck=()=>{}; // next commit
+    const drawFromDeck = () => {
+  if (deck.length === 0) return;
+  const i = Math.floor(Math.random()*deck.length);
+  const card = deck[i];
+  const next = deck.slice(); next.splice(i,1);
+  setDeck(next);
+  setHand([...hand, card]);
+  setPickedIndex(null);
+};
+
     const onCardClick=(i)=>{}; // next commits
     return (
       <div className="app">
