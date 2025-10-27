@@ -148,6 +148,13 @@ const Controls = ({ onDeal5, onDeal7, onReset, onToss, onRegroup, canToss, onWil
         setPickedIndex(null);
       };
 
+      const onToss = () => {
+  if (pickedIndex === null) return;          // must have a picked card
+  setHand(prev => prev.filter((_, i) => i !== pickedIndex)); // remove it permanently
+  setPickedIndex(null);                       // clear selection
+};
+
+
       const putHandBackToDeck = (cards) => setDeck(prev=>shuffle([...prev, ...cards]));
 
       const dealN = (n) => {
@@ -178,7 +185,8 @@ const Controls = ({ onDeal5, onDeal7, onReset, onToss, onRegroup, canToss, onWil
 
           <div className="top-row">
             <DeckPile remaining={deck.length} onDraw={drawFromDeck}/>
-            <Controls onDeal5={onDeal5} onDeal7={onDeal7} onReset={onReset} onRegroup={onRegroup} onWildcard={onWildcard}/>
+            <Controls onDeal5={onDeal5} onDeal7={onDeal7} onReset={onReset} onRegroup={onRegroup} onWildcard={onWildcard}  onToss={onToss}
+  canToss={pickedIndex !== null}/>
           </div>
 
           <h2>Your Cards</h2>
