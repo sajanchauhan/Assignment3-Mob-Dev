@@ -58,29 +58,35 @@ h1{margin:18px 0 8px}
 <body>
   <div id="root"></div>
   <script type="text/babel">
-  // Utilities
-  const SUITS = ['♥', '♦', '♣', '♠'];
-  const VALUES = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
-  const makeStandardDeck = () => {
-    let id = 1, deck = [];
-    for (const s of SUITS) for (const v of VALUES) deck.push({ id:id++, suit:s, value:v, source:'standard' });
-    return deck;
-  };
-  const Card = ({ suit, value, picked=false, onClick=()=>{} }) => {
-    const isRed = suit==='♥' || suit==='♦';
+  const SUITS=['♥','♦','♣','♠']; const VALUES=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+  const makeStandardDeck=()=>{let id=1,d=[];for(const s of SUITS)for(const v of VALUES)d.push({id:id++,suit:s,value:v,source:'standard'});return d;};
+  const Card=({suit,value,picked,onClick})=>{const red=suit==='♥'||suit==='♦';return(<div className={`card-tile ${red?'red':'black'} ${picked?'picked':''}`} onClick={onClick}><div className="card-corner tl"><div>{value}</div><div>{suit}</div></div><div className="suit-big">{suit}</div><div className="card-corner br"><div>{value}</div><div>{suit}</div></div></div>)};
+  const DeckPile=({remaining,onDraw})=> remaining===0 ? (<div className="deck-empty">no cards remaining</div>) : (<div className="deck" onClick={onDraw}><div className="deck-count">{remaining} left</div></div>);
+  const Hand=({cards,pickedIndex,onCardClick})=> (<div className="hand">{cards.map((c,i)=>(<Card key={c.id} suit={c.suit} value={c.value} picked={pickedIndex===i} onClick={()=>onCardClick(i)} />))}</div>);
+
+  const App=()=> {
+    const [deck,setDeck]=React.useState(makeStandardDeck);
+    const [hand,setHand]=React.useState([]);
+    const [pickedIndex,setPickedIndex]=React.useState(null);
+    const drawFromDeck=()=>{}; // next commit
+    const onCardClick=(i)=>{}; // next commits
     return (
-      <div className={`card-tile ${isRed?'red':'black'} ${picked?'picked':''}`} onClick={onClick}>
-        <div className="card-corner tl"><div>{value}</div><div>{suit}</div></div>
-        <div className="suit-big">{suit}</div>
-        <div className="card-corner br"><div>{value}</div><div>{suit}</div></div>
+      <div className="app">
+        <h1>Deck of Cards — ReactJS</h1>
+        <div className="subtitle">Click the deck to draw.</div>
+        <div className="top-row">
+          <DeckPile remaining={deck.length} onDraw={drawFromDeck}/>
+        </div>
+        <h2>Your Cards</h2>
+        <Hand cards={hand} pickedIndex={pickedIndex} onCardClick={onCardClick}/>
       </div>
     );
   };
 
-
-  const root = ReactDOM.createRoot(document.getElementById('root'));
-  root.render(<div>Deck size: {makeStandardDeck().length}</div>);
+  const root=ReactDOM.createRoot(document.getElementById('root'));
+  root.render(<App/>);
 </script>
+
 
 </body>
 </html>
