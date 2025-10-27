@@ -18,8 +18,18 @@ I have not made my work available to anyone else.
 <body>
   <div id="root"></div>
   <script type="text/babel">
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<div>React is ready ✅</div>);
-  </script>
+  // Utilities
+  const SUITS = ['♥', '♦', '♣', '♠'];
+  const VALUES = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+  const makeStandardDeck = () => {
+    let id = 1, deck = [];
+    for (const s of SUITS) for (const v of VALUES) deck.push({ id:id++, suit:s, value:v, source:'standard' });
+    return deck;
+  };
+
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(<div>Deck size: {makeStandardDeck().length}</div>);
+</script>
+
 </body>
 </html>
