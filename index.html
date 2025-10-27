@@ -88,7 +88,12 @@ h1{margin:18px 0 8px}
   setPickedIndex(null);
 };
 
-    const onCardClick=(i)=>{};
+    const onCardClick = (idx) => {
+  if (pickedIndex === idx) { setPickedIndex(null); return; }
+  if (pickedIndex === null) { setPickedIndex(idx); return; }
+  
+};
+
     const shuffle = (arr)=>{const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 
 const putHandBackToDeck = (cards) => setDeck(prev=>shuffle([...prev, ...cards]));
