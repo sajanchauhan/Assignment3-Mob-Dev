@@ -63,6 +63,12 @@ h1{margin:18px 0 8px}
   const Card=({suit,value,picked,onClick})=>{const red=suit==='♥'||suit==='♦';return(<div className={`card-tile ${red?'red':'black'} ${picked?'picked':''}`} onClick={onClick}><div className="card-corner tl"><div>{value}</div><div>{suit}</div></div><div className="suit-big">{suit}</div><div className="card-corner br"><div>{value}</div><div>{suit}</div></div></div>)};
   const DeckPile=({remaining,onDraw})=> remaining===0 ? (<div className="deck-empty">no cards remaining</div>) : (<div className="deck" onClick={onDraw}><div className="deck-count">{remaining} left</div></div>);
   const Hand=({cards,pickedIndex,onCardClick})=> (<div className="hand">{cards.map((c,i)=>(<Card key={c.id} suit={c.suit} value={c.value} picked={pickedIndex===i} onClick={()=>onCardClick(i)} />))}</div>);
+  const Controls = ({ onDeal5 }) => (
+  <div className="controls">
+    <button className="btn primary" onClick={onDeal5}>Deal 5</button>
+  </div>
+);
+
 
   const App=()=> {
     const [deck,setDeck]=React.useState(makeStandardDeck);
@@ -78,7 +84,30 @@ h1{margin:18px 0 8px}
   setPickedIndex(null);
 };
 
-    const onCardClick=(i)=>{}; // next commits
+    const onCardClick=(i)=>{};
+    const shuffle = (arr)=>{const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+
+const putHandBackToDeck = (cards) => setDeck(prev=>shuffle([...prev, ...cards]));
+
+const dealN = (n) => {
+  putHandBackToDeck(hand);
+  setHand([]);
+  setPickedIndex(null);
+  setDeck(prev => {
+    const temp = prev.slice();
+    const newHand = [];
+    for (let k=0;k<n;k++){
+      if (temp.length===0) break;
+      const i=Math.floor(Math.random()*temp.length);
+      newHand.push(temp[i]); temp.splice(i,1);
+    }
+    setHand(newHand);
+    return temp;
+  });
+};
+
+const onDeal5 = () => dealN(5);
+
     return (
       <div className="app">
         <h1>Deck of Cards — ReactJS</h1>
@@ -86,6 +115,8 @@ h1{margin:18px 0 8px}
 
         <div className="top-row">
           <DeckPile remaining={deck.length} onDraw={drawFromDeck}/>
+          <Controls onDeal5={onDeal5}/>
+
         </div>
         <h2>Your Cards</h2>
         <Hand cards={hand} pickedIndex={pickedIndex} onCardClick={onCardClick}/>
