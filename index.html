@@ -63,11 +63,15 @@ h1{margin:18px 0 8px}
   const Card=({suit,value,picked,onClick})=>{const red=suit==='♥'||suit==='♦';return(<div className={`card-tile ${red?'red':'black'} ${picked?'picked':''}`} onClick={onClick}><div className="card-corner tl"><div>{value}</div><div>{suit}</div></div><div className="suit-big">{suit}</div><div className="card-corner br"><div>{value}</div><div>{suit}</div></div></div>)};
   const DeckPile=({remaining,onDraw})=> remaining===0 ? (<div className="deck-empty">no cards remaining</div>) : (<div className="deck" onClick={onDraw}><div className="deck-count">{remaining} left</div></div>);
   const Hand=({cards,pickedIndex,onCardClick})=> (<div className="hand">{cards.map((c,i)=>(<Card key={c.id} suit={c.suit} value={c.value} picked={pickedIndex===i} onClick={()=>onCardClick(i)} />))}</div>);
-  const Controls = ({ onDeal5 }) => (
+ const Controls = ({ onDeal5, onDeal7, onReset }) => (
   <div className="controls">
     <button className="btn primary" onClick={onDeal5}>Deal 5</button>
+    <button className="btn primary" onClick={onDeal7}>Deal 7</button>
+    <button className="btn" onClick={onReset}>Reset</button>
   </div>
 );
+
+
 
 
   const App=()=> {
@@ -107,6 +111,9 @@ const dealN = (n) => {
 };
 
 const onDeal5 = () => dealN(5);
+const onDeal7 = () => dealN(7);
+const onReset = () => { putHandBackToDeck(hand); setHand([]); setPickedIndex(null); };
+
 
     return (
       <div className="app">
@@ -115,7 +122,8 @@ const onDeal5 = () => dealN(5);
 
         <div className="top-row">
           <DeckPile remaining={deck.length} onDraw={drawFromDeck}/>
-          <Controls onDeal5={onDeal5}/>
+         <Controls onDeal5={onDeal5} onDeal7={onDeal7} onReset={onReset}/>
+
 
         </div>
         <h2>Your Cards</h2>
