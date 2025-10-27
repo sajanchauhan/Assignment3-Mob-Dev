@@ -90,20 +90,23 @@ I have not made my work available to anyone else.
         ))}
       </div>
     );
+const Controls = ({ onDeal5, onDeal7, onReset, onToss, onRegroup, canToss }) => (
+  <div className="controls">
+    <button className="btn primary" onClick={onDeal5}>Deal 5</button>
+    <button className="btn primary" onClick={onDeal7}>Deal 7</button>
+    <button className="btn" onClick={onReset}>Reset</button>
+    <button className="btn danger" onClick={onToss} disabled={!canToss}>Toss</button>
+    <button className="btn" onClick={onRegroup}>Regroup</button>
+  </div>
+);
 
-    // Simplified Controls (removed unused Toss)
-    const Controls = ({ onDeal5, onDeal7, onReset }) => (
-      <div className="controls">
-        <button className="btn primary" onClick={onDeal5}>Deal 5</button>
-        <button className="btn primary" onClick={onDeal7}>Deal 7</button>
-        <button className="btn" onClick={onReset}>Reset</button>
-      </div>
-    );
 
     const App=()=> {
       const [deck,setDeck]=React.useState(makeStandardDeck);
       const [hand,setHand]=React.useState([]);
       const [pickedIndex,setPickedIndex]=React.useState(null);
+      const onRegroup = () => { setHand(shuffle(hand)); setPickedIndex(null); };
+
 
       const shuffle = (arr)=>{
         const a=arr.slice();
@@ -164,7 +167,7 @@ I have not made my work available to anyone else.
 
           <div className="top-row">
             <DeckPile remaining={deck.length} onDraw={drawFromDeck}/>
-            <Controls onDeal5={onDeal5} onDeal7={onDeal7} onReset={onReset}/>
+            <Controls onDeal5={onDeal5} onDeal7={onDeal7} onReset={onReset} onRegroup={onRegroup}/>
           </div>
 
           <h2>Your Cards</h2>
