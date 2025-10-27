@@ -63,13 +63,15 @@ h1{margin:18px 0 8px}
   const Card=({suit,value,picked,onClick})=>{const red=suit==='♥'||suit==='♦';return(<div className={`card-tile ${red?'red':'black'} ${picked?'picked':''}`} onClick={onClick}><div className="card-corner tl"><div>{value}</div><div>{suit}</div></div><div className="suit-big">{suit}</div><div className="card-corner br"><div>{value}</div><div>{suit}</div></div></div>)};
   const DeckPile=({remaining,onDraw})=> remaining===0 ? (<div className="deck-empty">no cards remaining</div>) : (<div className="deck" onClick={onDraw}><div className="deck-count">{remaining} left</div></div>);
   const Hand=({cards,pickedIndex,onCardClick})=> (<div className="hand">{cards.map((c,i)=>(<Card key={c.id} suit={c.suit} value={c.value} picked={pickedIndex===i} onClick={()=>onCardClick(i)} />))}</div>);
- const Controls = ({ onDeal5, onDeal7, onReset }) => (
+const Controls = ({ onDeal5, onDeal7, onReset, onToss, canToss }) => (
   <div className="controls">
     <button className="btn primary" onClick={onDeal5}>Deal 5</button>
     <button className="btn primary" onClick={onDeal7}>Deal 7</button>
     <button className="btn" onClick={onReset}>Reset</button>
+    <button className="btn danger" onClick={onToss} disabled={!canToss}>Toss</button>
   </div>
 );
+
 
 
 
@@ -142,7 +144,7 @@ const onReset = () => { putHandBackToDeck(hand); setHand([]); setPickedIndex(nul
         <Hand cards={hand} pickedIndex={pickedIndex} onCardClick={onCardClick}/>
       </div>
     );
-  };
+  
 
   const root=ReactDOM.createRoot(document.getElementById('root'));
   root.render(<App/>);
