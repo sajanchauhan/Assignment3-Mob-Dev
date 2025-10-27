@@ -82,7 +82,8 @@ h1{margin:18px 0 8px}
     return (
       <div className="app">
         <h1>Deck of Cards — ReactJS</h1>
-        <div className="subtitle">Click the deck to draw.</div>
+        <div className="subtitle">Click the deck to draw (stops when empty).</div>
+
         <div className="top-row">
           <DeckPile remaining={deck.length} onDraw={drawFromDeck}/>
         </div>
