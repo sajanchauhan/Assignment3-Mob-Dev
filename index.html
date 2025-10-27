@@ -1,5 +1,5 @@
 <!--
-StAuth10244: I Sajan Chauhan, 000924268git  certify that this material is my original work.
+StAuth10244: I Sajan Chauhan, 000924268  certify that this material is my original work.
 No other person's work has been used without due acknowledgement.
 I have not made my work available to anyone else.
 -->
@@ -10,146 +10,171 @@ I have not made my work available to anyone else.
   <title>Deck of Cards — ReactJS</title>
   <style>
     :root{
-  --bg:#0f1226; --panel:#161a33; --text:#f4f7ff; --muted:#aeb5d6;
-  --primary:#4c7dff; --accent:#ffcc4c; --danger:#ff5d62; --border:#2a2f52;
-  --card:#ffffff;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;
-     background:#0f1226;color:var(--text)}
-.app{max-width:1100px;margin:24px auto;padding:0 16px}
-h1{margin:18px 0 8px}
-.subtitle{color:var(--muted);font-size:14px}
-.controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
-.btn{padding:8px 12px;border-radius:10px;border:1px solid #2b3160;
-     background:#22264b;color:#e8ecff;cursor:pointer}
-.btn.primary{background:var(--primary)}
-.btn.accent{background:var(--accent);color:#111}
-.btn.danger{background:var(--danger)}
-.top-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-.hand{display:flex;flex-wrap:wrap;gap:14px;min-height:220px;padding:8px;
-      border:1px solid var(--border);border-radius:14px;background:#14183a}
-.deck{width:140px;height:200px;border-radius:14px;border:2px solid var(--border);
-      background:linear-gradient(145deg,#222747,#151936);display:flex;
-      align-items:center;justify-content:center;position:relative;cursor:pointer}
-.deck-empty{width:140px;height:200px;border-radius:14px;border:2px dashed #3c4272;
-      display:flex;align-items:center;justify-content:center;color:#9aa2d2}
-.deck-count{position:absolute;bottom:8px;right:10px;font-size:12px;color:var(--muted)}
-.card-tile{width:120px;height:180px;background:var(--card);color:#111;border-radius:12px;
-      border:3px solid transparent;position:relative;cursor:pointer}
-.card-tile.red{color:#c0162e}.card-tile.black{color:#0f0f0f}
-.card-tile.picked{border-color:#4cc38a}
-.card-corner{position:absolute;display:flex;flex-direction:column;align-items:center;
-      font-weight:700;font-size:14px;line-height:1.1}
-.card-corner.tl{top:8px;left:8px}
-.card-corner.br{bottom:8px;right:8px;transform:rotate(180deg)}
-.suit-big{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-      font-size:56px;opacity:.55}
-.footer{margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.footer .note{color:var(--muted);font-size:12px}
+      --bg:#0f1226; --panel:#161a33; --text:#f4f7ff; --muted:#aeb5d6;
+      --primary:#4c7dff; --accent:#ffcc4c; --danger:#ff5d62; --border:#2a2f52;
+      --card:#ffffff;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;
+         background:#0f1226;color:var(--text)}
+    .app{max-width:1100px;margin:24px auto;padding:0 16px}
+    h1{margin:18px 0 8px}
+    .subtitle{color:var(--muted);font-size:14px}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+    .btn{padding:8px 12px;border-radius:10px;border:1px solid #2b3160;
+         background:#22264b;color:#e8ecff;cursor:pointer}
+    .btn.primary{background:var(--primary)}
+    .btn.accent{background:var(--accent);color:#111}
+    .btn.danger{background:var(--danger)}
+    .top-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+    .hand{display:flex;flex-wrap:wrap;gap:14px;min-height:220px;padding:8px;
+          border:1px solid var(--border);border-radius:14px;background:#14183a}
+    .deck{width:140px;height:200px;border-radius:14px;border:2px solid var(--border);
+          background:linear-gradient(145deg,#222747,#151936);display:flex;
+          align-items:center;justify-content:center;position:relative;cursor:pointer}
+    .deck-empty{width:140px;height:200px;border-radius:14px;border:2px dashed #3c4272;
+          display:flex;align-items:center;justify-content:center;color:#9aa2d2}
+    .deck-count{position:absolute;bottom:8px;right:10px;font-size:12px;color:var(--muted)}
+    .card-tile{width:120px;height:180px;background:var(--card);color:#111;border-radius:12px;
+          border:3px solid transparent;position:relative;cursor:pointer}
+    .card-tile.red{color:#c0162e}.card-tile.black{color:#0f0f0f}
+    .card-tile.picked{border-color:#4cc38a}
+    .card-corner{position:absolute;display:flex;flex-direction:column;align-items:center;
+          font-weight:700;font-size:14px;line-height:1.1}
+    .card-corner.tl{top:8px;left:8px}
+    .card-corner.br{bottom:8px;right:8px;transform:rotate(180deg)}
+    .suit-big{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+          font-size:56px;opacity:.55}
+    .footer{margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .footer .note{color:var(--muted);font-size:12px}
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- React 18 + ReactDOM + Babel (for in-browser JSX) -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div id="root"></div>
+
   <script type="text/babel">
-  const SUITS=['♥','♦','♣','♠']; const VALUES=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
-  const makeStandardDeck=()=>{let id=1,d=[];for(const s of SUITS)for(const v of VALUES)d.push({id:id++,suit:s,value:v,source:'standard'});return d;};
-  const Card=({suit,value,picked,onClick})=>{const red=suit==='♥'||suit==='♦';return(<div className={`card-tile ${red?'red':'black'} ${picked?'picked':''}`} onClick={onClick}><div className="card-corner tl"><div>{value}</div><div>{suit}</div></div><div className="suit-big">{suit}</div><div className="card-corner br"><div>{value}</div><div>{suit}</div></div></div>)};
-  const DeckPile=({remaining,onDraw})=> remaining===0 ? (<div className="deck-empty">no cards remaining</div>) : (<div className="deck" onClick={onDraw}><div className="deck-count">{remaining} left</div></div>);
-  const Hand=({cards,pickedIndex,onCardClick})=> (<div className="hand">{cards.map((c,i)=>(<Card key={c.id} suit={c.suit} value={c.value} picked={pickedIndex===i} onClick={()=>onCardClick(i)} />))}</div>);
-const Controls = ({ onDeal5, onDeal7, onReset, onToss, canToss }) => (
-  <div className="controls">
-    <button className="btn primary" onClick={onDeal5}>Deal 5</button>
-    <button className="btn primary" onClick={onDeal7}>Deal 7</button>
-    <button className="btn" onClick={onReset}>Reset</button>
-    <button className="btn danger" onClick={onToss} disabled={!canToss}>Toss</button>
-  </div>
-);
+    const SUITS=['♥','♦','♣','♠'];
+    const VALUES=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
 
+    const makeStandardDeck=()=>{
+      let id=1,d=[];
+      for(const s of SUITS) for(const v of VALUES) d.push({id:id++,suit:s,value:v,source:'standard'});
+      return d;
+    };
 
-
-
-
-  const App=()=> {
-    const [deck,setDeck]=React.useState(makeStandardDeck);
-    const [hand,setHand]=React.useState([]);
-    const [pickedIndex,setPickedIndex]=React.useState(null);
-    const drawFromDeck = () => {
-  if (deck.length === 0) return;
-  const i = Math.floor(Math.random()*deck.length);
-  const card = deck[i];
-  const next = deck.slice(); next.splice(i,1);
-  setDeck(next);
-  setHand([...hand, card]);
-  setPickedIndex(null);
-};
-
-    const onCardClick = (idx) => {
-  if (pickedIndex === idx) { setPickedIndex(null); return; }
-  if (pickedIndex === null) { setPickedIndex(idx); return; }
-  const a=Math.min(pickedIndex, idx), b=Math.max(pickedIndex, idx);
-  const next = hand.slice();
-  [next[a], next[b]] = [next[b], next[a]];
-  setHand(next);
-  setPickedIndex(null);
-};
-
-  
-};
-
-    const shuffle = (arr)=>{const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
-
-const putHandBackToDeck = (cards) => setDeck(prev=>shuffle([...prev, ...cards]));
-
-const dealN = (n) => {
-  putHandBackToDeck(hand);
-  setHand([]);
-  setPickedIndex(null);
-  setDeck(prev => {
-    const temp = prev.slice();
-    const newHand = [];
-    for (let k=0;k<n;k++){
-      if (temp.length===0) break;
-      const i=Math.floor(Math.random()*temp.length);
-      newHand.push(temp[i]); temp.splice(i,1);
-    }
-    setHand(newHand);
-    return temp;
-  });
-};
-
-const onDeal5 = () => dealN(5);
-const onDeal7 = () => dealN(7);
-const onReset = () => { putHandBackToDeck(hand); setHand([]); setPickedIndex(null); };
-
-
-    return (
-      <div className="app">
-        <h1>Deck of Cards — ReactJS</h1>
-        <div className="subtitle">Click the deck to draw (stops when empty).</div>
-
-        <div className="top-row">
-          <DeckPile remaining={deck.length} onDraw={drawFromDeck}/>
-         <Controls onDeal5={onDeal5} onDeal7={onDeal7} onReset={onReset}/>
-
-
+    const Card=({suit,value,picked,onClick})=>{
+      const red=suit==='♥'||suit==='♦';
+      return (
+        <div className={`card-tile ${red?'red':'black'} ${picked?'picked':''}`} onClick={onClick}>
+          <div className="card-corner tl"><div>{value}</div><div>{suit}</div></div>
+          <div className="suit-big">{suit}</div>
+          <div className="card-corner br"><div>{value}</div><div>{suit}</div></div>
         </div>
-        <h2>Your Cards</h2>
-        <Hand cards={hand} pickedIndex={pickedIndex} onCardClick={onCardClick}/>
+      );
+    };
+
+    const DeckPile=({remaining,onDraw})=>
+      remaining===0
+        ? (<div className="deck-empty">no cards remaining</div>)
+        : (<div className="deck" onClick={onDraw}><div className="deck-count">{remaining} left</div></div>);
+
+    const Hand=({cards,pickedIndex,onCardClick})=>(
+      <div className="hand">
+        {cards.map((c,i)=>(
+          <Card key={c.id} suit={c.suit} value={c.value} picked={pickedIndex===i} onClick={()=>onCardClick(i)} />
+        ))}
       </div>
     );
-  
 
-  const root=ReactDOM.createRoot(document.getElementById('root'));
-  root.render(<App/>);
-</script>
+    // Simplified Controls (removed unused Toss)
+    const Controls = ({ onDeal5, onDeal7, onReset }) => (
+      <div className="controls">
+        <button className="btn primary" onClick={onDeal5}>Deal 5</button>
+        <button className="btn primary" onClick={onDeal7}>Deal 7</button>
+        <button className="btn" onClick={onReset}>Reset</button>
+      </div>
+    );
 
+    const App=()=> {
+      const [deck,setDeck]=React.useState(makeStandardDeck);
+      const [hand,setHand]=React.useState([]);
+      const [pickedIndex,setPickedIndex]=React.useState(null);
 
+      const shuffle = (arr)=>{
+        const a=arr.slice();
+        for(let i=a.length-1;i>0;i--){
+          const j=Math.floor(Math.random()*(i+1));
+          [a[i],a[j]]=[a[j],a[i]];
+        }
+        return a;
+      };
+
+      const drawFromDeck = () => {
+        if (deck.length === 0) return;
+        const i = Math.floor(Math.random()*deck.length);
+        const card = deck[i];
+        const next = deck.slice(); next.splice(i,1);
+        setDeck(next);
+        setHand([...hand, card]);
+        setPickedIndex(null);
+      };
+
+      const onCardClick = (idx) => {
+        if (pickedIndex === idx) { setPickedIndex(null); return; }
+        if (pickedIndex === null) { setPickedIndex(idx); return; }
+        const a=Math.min(pickedIndex, idx), b=Math.max(pickedIndex, idx);
+        const next = hand.slice();
+        [next[a], next[b]] = [next[b], next[a]];
+        setHand(next);
+        setPickedIndex(null);
+      };
+
+      const putHandBackToDeck = (cards) => setDeck(prev=>shuffle([...prev, ...cards]));
+
+      const dealN = (n) => {
+        putHandBackToDeck(hand);
+        setHand([]);
+        setPickedIndex(null);
+        setDeck(prev => {
+          const temp = prev.slice();
+          const newHand = [];
+          for (let k=0;k<n;k++){
+            if (temp.length===0) break;
+            const i=Math.floor(Math.random()*temp.length);
+            newHand.push(temp[i]); temp.splice(i,1);
+          }
+          setHand(newHand);
+          return temp;
+        });
+      };
+
+      const onDeal5 = () => dealN(5);
+      const onDeal7 = () => dealN(7);
+      const onReset = () => { putHandBackToDeck(hand); setHand([]); setPickedIndex(null); };
+
+      return (
+        <div className="app">
+          <h1>Deck of Cards — ReactJS</h1>
+          <div className="subtitle">Click the deck to draw (stops when empty).</div>
+
+          <div className="top-row">
+            <DeckPile remaining={deck.length} onDraw={drawFromDeck}/>
+            <Controls onDeal5={onDeal5} onDeal7={onDeal7} onReset={onReset}/>
+          </div>
+
+          <h2>Your Cards</h2>
+          <Hand cards={hand} pickedIndex={pickedIndex} onCardClick={onCardClick}/>
+        </div>
+      );
+    };
+
+    const root=ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App/>);
+  </script>
 </body>
 </html>
