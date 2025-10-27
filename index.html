@@ -58,6 +58,7 @@ I have not made my work available to anyone else.
   <div id="root"></div>
 
   <script type="text/babel">
+    let GLOBAL_CARD_ID = 10000;
     const SUITS=['♥','♦','♣','♠'];
     const VALUES=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
 
@@ -90,13 +91,15 @@ I have not made my work available to anyone else.
         ))}
       </div>
     );
-const Controls = ({ onDeal5, onDeal7, onReset, onToss, onRegroup, canToss }) => (
+const Controls = ({ onDeal5, onDeal7, onReset, onToss, onRegroup, canToss, onWildcard }) => (
   <div className="controls">
     <button className="btn primary" onClick={onDeal5}>Deal 5</button>
     <button className="btn primary" onClick={onDeal7}>Deal 7</button>
     <button className="btn" onClick={onReset}>Reset</button>
     <button className="btn danger" onClick={onToss} disabled={!canToss}>Toss</button>
     <button className="btn" onClick={onRegroup}>Regroup</button>
+    <button className="btn accent" onClick={onWildcard}>Wildcard</button>
+
   </div>
 );
 
@@ -106,6 +109,14 @@ const Controls = ({ onDeal5, onDeal7, onReset, onToss, onRegroup, canToss }) => 
       const [hand,setHand]=React.useState([]);
       const [pickedIndex,setPickedIndex]=React.useState(null);
       const onRegroup = () => { setHand(shuffle(hand)); setPickedIndex(null); };
+      const onWildcard = () => {
+  const suit = SUITS[Math.floor(Math.random()*SUITS.length)];
+  const value = VALUES[Math.floor(Math.random()*VALUES.length)];
+  const card = { id: GLOBAL_CARD_ID++, suit, value, source: 'wildcard' };
+  setHand([...hand, card]);
+  setPickedIndex(null);
+};
+
 
 
       const shuffle = (arr)=>{
@@ -167,17 +178,27 @@ const Controls = ({ onDeal5, onDeal7, onReset, onToss, onRegroup, canToss }) => 
 
           <div className="top-row">
             <DeckPile remaining={deck.length} onDraw={drawFromDeck}/>
-            <Controls onDeal5={onDeal5} onDeal7={onDeal7} onReset={onReset} onRegroup={onRegroup}/>
+            <Controls onDeal5={onDeal5} onDeal7={onDeal7} onReset={onReset} onRegroup={onRegroup} onWildcard={onWildcard}/>
           </div>
 
           <h2>Your Cards</h2>
           <Hand cards={hand} pickedIndex={pickedIndex} onCardClick={onCardClick}/>
+          <footer className="footer">
+  <button className="btn" onClick={()=>{
+    setDeck(makeStandardDeck());
+    setHand([]); setPickedIndex(null);
+  }}>Full Reset (52-card Deck)</button>
+  <span className="note">Wildcards may increase deck size once returned via Deal/Reset — allowed.</span>
+</footer>
+
         </div>
       );
     };
 
     const root=ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App/>);
+
+    
   </script>
 </body>
 </html>
