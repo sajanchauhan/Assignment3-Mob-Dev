@@ -66,6 +66,17 @@ h1{margin:18px 0 8px}
     for (const s of SUITS) for (const v of VALUES) deck.push({ id:id++, suit:s, value:v, source:'standard' });
     return deck;
   };
+  const Card = ({ suit, value, picked=false, onClick=()=>{} }) => {
+    const isRed = suit==='♥' || suit==='♦';
+    return (
+      <div className={`card-tile ${isRed?'red':'black'} ${picked?'picked':''}`} onClick={onClick}>
+        <div className="card-corner tl"><div>{value}</div><div>{suit}</div></div>
+        <div className="suit-big">{suit}</div>
+        <div className="card-corner br"><div>{value}</div><div>{suit}</div></div>
+      </div>
+    );
+  };
+
 
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(<div>Deck size: {makeStandardDeck().length}</div>);
